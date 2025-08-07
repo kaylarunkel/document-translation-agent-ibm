@@ -1,0 +1,36 @@
+spec_version: v1
+style: default
+kind: native
+name: document_translation_v3
+description: An agent that translates a document using a deployed AI service and saves the output.
+welcome_content:
+  welcome_message: Welcome to the document translator!
+  description: What would you like to do?
+  is_default_message: true
+instructions: Ask the user what type of file they are uploading. Prompt the user to upload a file. Use the content_retrieval_from_file tool to extract the text from the uploaded file. This will be content.
+              
+              When the user indicates they want to translate a document, ask them for the original language of the document. Tell the user the options
+              include English, Spanish, French, German, and Japanese. This will be original_language.
+              
+              Then, ask the user the language they want to translate the document to.
+              Tell the user the options include English, Spanish, French, German, and Japanese. This will be new_language.
+              
+              Create a Python dictionary with the content, original_language, and new_language. Give that dictionary to the document_translation_v3 tool.
+llm: watsonx/meta-llama/llama-3-2-90b-vision-instruct
+collaborators: []
+tools: 
+  - content_retrieval_from_file
+  - document_translation_v3
+parameters:
+  - name: content
+    type: string
+    required: true
+    description: The text from the file to be translated.
+  - name: original_language
+    type: string
+    required: true
+    description: The original language of the document to be translated. Options include English, Spanish, French, German, and Japanese.
+  - name: new_language
+    type: string
+    required: true
+    description: The language for the document to be translated to. Options include English, Spanish, French, German, and Japanese.
